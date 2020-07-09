@@ -3,5 +3,8 @@
 		{
 			"path": "."
 		}
-	]
+	],
+	"settings": {
+		"python.pythonPath": "/Users/SkyBox/.local/share/virtualenvs/feam_schedule-Xbl-xrYB/bin/python"
+	}
 }
