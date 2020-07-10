@@ -9,14 +9,20 @@ def get_sentinel_user():
 
 
 class Client(models.Model):
+    # client info
     name = models.CharField(null=False, max_length=30)
+    clientDescription = models.TextField(null=True, blank=True)
+    address = models.CharField(null=True, max_length=100)
+    phoneNumber = models.IntegerField(null=False)
 
+    # relational fields
     createdBy = models.ForeignKey(
         User, on_delete=models.SET(get_sentinel_user), null=True, blank=True)
 
     history = models.ManyToManyField(
-        'appointments.Appointment', related_name="appointments", related_query_name="appointment", blank=True, null=True)
+        'appointments.Appointment', related_name="appointments", related_query_name="appointment", blank=True)
 
+    # Date Related
     createdOn = models.DateTimeField(auto_now_add=True)
     lastModified = models.DateTimeField(auto_now=True)
 

@@ -3,33 +3,43 @@
 {% block head_title%} FEAM Clients {% endblock head_title%}
 <!--  -->
 {% block content %}
-<h1>Feam Clients</h1>
-<div id="clients">
-	<!-- add clients via js xhr -->
+<div class="container">
+	<div class="row text-center">
+		<div class="col">
+			<h1>Client List</h1>
+		</div>
+	</div>
+	<div class="row" id="clients">
+		loading...
+	</div>
 </div>
 <script>
 	const clientElement = document.getElementById('clients');
 	const xhr = new XMLHttpRequest();
 	const method = 'GET';
-	const url = '/clients';
+	const url = '/api/clients';
 	const responseType = 'json';
-
-	clientElement.innerHTML = 'loading...';
 
 	const formatClientElement = (client) => {
 		const clientStr = `
-	           <div class="mb-4 card" id='client-${client.id}'>
-	               <p>Name:${client.name}</p>
-	           </div>
-	           `;
+		   <div class="col-12 col-md-10 mx-auto py-3 mb-4 border rounded" id='client-${client.id}'>
+			   <p>Name: ${client.name}</p>
+			   <p>Info: ${client.clientDescription}</p>
+			   <p>Address: ${client.address}</p>
+			   <p>Contact Number: ${client.phoneNumber}</p>
+		   </div>
+		   `;
 		return clientStr;
 	};
+
+	clientElement.innerHTML = 'loading...';
 
 	xhr.responseType = responseType;
 	xhr.open(method, url);
 	xhr.onload = function () {
 		const serverResponse = xhr.response;
 		let listedItems = serverResponse.response;
+		console.log(listedItems);
 		let clientListHtml = '';
 		listedItems.map((client) => {
 			el = formatClientElement(client);

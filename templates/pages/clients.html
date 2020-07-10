@@ -3,24 +3,37 @@
 {% block head_title%} FEAM Clients {% endblock head_title%}
 <!--  -->
 {% block content %}
-<h1>Feam Clients</h1>
+<h1>Client List</h1>
 <div id="clients">
 	<!-- add clients via js xhr -->
 </div>
 <script>
 	const clientElement = document.getElementById('clients');
-	clientElement.innerHTML = 'loading...';
 	const xhr = new XMLHttpRequest();
 	const method = 'GET';
-	const url = '/clients';
+	const url = '/api/clients';
 	const responseType = 'json';
+	clientElement.innerHTML = 'loading...';
 
+	const formatClientElement = (client) => {
+		const clientStr = `
+		   <div class="mb-4 card" id='client-${client.id}'>
+			   <p>Name:${client.name}</p>
+		   </div>
+		   `;
+		return clientStr;
+	};
 	xhr.responseType = responseType;
 	xhr.open(method, url);
 	xhr.onload = function () {
 		const serverResponse = xhr.response;
-		var listedItems = serverResponse.response;
-		console.log(listedItems);
+		let listedItems = serverResponse.response;
+		let clientListHtml = '';
+		listedItems.map((client) => {
+			el = formatClientElement(client);
+			clientListHtml += el;
+		});
+		clientElement.innerHTML = clientListHtml;
 	};
 	xhr.send();
 </script>

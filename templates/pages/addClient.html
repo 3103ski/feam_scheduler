@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+<!--  -->
+{% block head_title%}Add New Client{% endblock head_title%}
+<!--  -->
+{% block content %}
+
+<div class="row">
+	<div class="col-md-4 m-auto col-10">
+		<form class="form" method="POST" action="/api/clients/create/">
+			{% csrf_token %}
+			<input
+				class="form-control mb-4"
+				type="hidden"
+				value="/"
+				action="/create-client"
+			/>
+			<input
+				class="form-control mb-4"
+				type="text"
+				name="name"
+				placeholder="Client Name"
+			/>
+			<textarea
+				class="form-control mb-4"
+				name="clientDescription"
+				placeholder="Client Description"
+			></textarea>
+			<input
+				class="form-control mb-4"
+				type="text"
+				name="address"
+				placeholder="Client Address"
+			/>
+			<input
+				class="form-control mb-4"
+				type="text"
+				name="phoneNumber"
+				placeholder="Client Phone Number"
+			/>
+			<button type="submit" class="btn btn-primary">Save Client</button>
+		</form>
+	</div>
+</div>
+{% endblock content%}
