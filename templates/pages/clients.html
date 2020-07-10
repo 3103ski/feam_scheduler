@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+<!--  -->
+{% block head_title%} FEAM Clients {% endblock head_title%}
+<!--  -->
+{% block content %}
+<h1>Feam Clients</h1>
+<div id="clients">
+	<!-- add clients via js xhr -->
+</div>
+<script>
+	const clientElement = document.getElementById('clients');
+	clientElement.innerHTML = 'loading...';
+	const xhr = new XMLHttpRequest();
+	const method = 'GET';
+	const url = '/clients';
+	const responseType = 'json';
+
+	xhr.responseType = responseType;
+	xhr.open(method, url);
+	xhr.onload = function () {
+		const serverResponse = xhr.response;
+		var listedItems = serverResponse.response;
+		console.log(listedItems);
+	};
+	xhr.send();
+</script>
+{% endblock content%}

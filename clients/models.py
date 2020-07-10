@@ -15,7 +15,7 @@ class Client(models.Model):
         User, on_delete=models.SET(get_sentinel_user), null=True, blank=True)
 
     history = models.ManyToManyField(
-        'self', related_name="appointments", related_query_name="appointment", blank=True)
+        'appointments.Appointment', related_name="appointments", related_query_name="appointment", blank=True, null=True)
 
     createdOn = models.DateTimeField(auto_now_add=True)
     lastModified = models.DateTimeField(auto_now=True)

@@ -10,7 +10,6 @@ from .models import Appointment
 class AppointmentAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'createdBy', 'notes']
     search_fields = ['client', 'user__username', 'user__email']
-    fields = ('client', 'notes')
 
 
 admin.site.register(Appointment, AppointmentAdmin)
