@@ -8,7 +8,8 @@ from .models import Appointment
 
 
 class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'createdBy', 'notes']
+    list_display = ['__str__', 'createdBy',
+                    'lastModified', 'appointmentDate', 'notes']
     search_fields = ['client', 'user__username', 'user__email']
 
 

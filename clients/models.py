@@ -19,15 +19,24 @@ class Client(models.Model):
     createdBy = models.ForeignKey(
         User, on_delete=models.SET(get_sentinel_user), null=True, blank=True)
 
-    history = models.ManyToManyField(
-        'appointments.Appointment', related_name="appointments", related_query_name="appointment", blank=True)
-
     # Date Related
     createdOn = models.DateTimeField(auto_now_add=True)
     lastModified = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        ordering = ['-id']
-
     def __str__(self):
         return self.name
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "address": self.address,
+            "phoneNumber": self.phoneNumber,
+            "clientDescription": self.clientDescription,
+            "createdBy": self.createdBy,
+            "createdOn": self.createdOn,
+            "lastModified": self.lastModified
+        }
+
+    class Meta:
+        ordering = ['name']

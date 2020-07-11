@@ -5,13 +5,34 @@
 {% block content %}
 
 <div class="row">
+	<div
+		class="col-12"
+		style="
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-bottom: 3rem;
+		"
+	>
+		<h1>Add A New Client</h1>
+		<p>
+			Please fill out the following information for a client so you can set
+			appointments with them.
+		</p>
+	</div>
 	<div class="col-md-4 m-auto col-10">
-		<form class="form" method="POST" action="/api/clients/create/">
+		<form
+			id="client-create-form"
+			class="form"
+			method="POST"
+			action="/api/clients/create/"
+		>
 			{% csrf_token %}
 			<input
 				class="form-control mb-4"
 				type="hidden"
 				value="/"
+				name="next"
 				action="/create-client"
 			/>
 			<input
@@ -41,4 +62,27 @@
 		</form>
 	</div>
 </div>
+
+<script>
+	const formEl = document.getElementById('client-create-form');
+
+	function handleClientWasCreatedFormSubmit(event) {
+		event.preventDefault();
+
+		const newClientForm = event.target;
+		const newClientData = new FormData(newClientForm);
+		const url = newClientForm.getAttribute('action');
+		const method = newClientForm.getAttribute('method');
+		const xhr = new XMLHttpRequest();
+
+		xhr.open(method, url);
+		xhr.setRequestHeader('HTTP_X_REQUESTED_WITH', 'XMLHttpRequest');
+		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		xhr.onload = function () {
+			const newClient = xhr.response;
+		};
+		xhr.send(newClientData);
+	}
+	// formEl.addEventListener('submit', handleClientWasCreatedFormSubmit);
+</script>
 {% endblock content%}

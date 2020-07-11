@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+<!--  -->
+{% block head_title%} FEAM Appointments {% endblock head_title%}
+<!--  -->
+{% block content %}
+<div class="container">
+	<div class="row text-center mb-4">
+		<div class="col">
+			<h1>Appointment List</h1>
+			<p>These are current upcoming appointments.</p>
+		</div>
+	</div>
+	<div class="row" id="appointments">
+		<div class="loader">Loading Appointments...</div>
+	</div>
+</div>
+<script>
+	const appointmentsEl = document.getElementById('appointments');
+
+	const formatAppointmentElement = (appointment) => {
+		const appointmentStr = `
+		   <div class="col-12 col-md-10 mx-auto py-3 mb-4 border rounded" id='client-${appointment.id}'>
+			   <p>Client: ${appointment.client}</p>
+			   <p>Created By: ${appointment.createdBy}</p>
+			   <p>Appointment Date: ${appointment.appointmentDate}</p>
+			   <p>Notes: ${appointment.notes}</p>
+			   <p>Created On: ${appointment.createdOn}</p>
+			   <p>Last Modified: ${appointment.lastModified}</p>
+		   </div>
+		   `;
+		return appointmentStr;
+	};
+
+	function loadAppointments(appointmentElement) {
+		const xhr = new XMLHttpRequest();
+		const method = 'GET';
+		const url = '/api/appointments';
+		const responseType = 'json';
+
+		xhr.responseType = responseType;
+		xhr.open(method, url);
+		xhr.onload = function () {
+			const serverResponse = xhr.response;
+			let listedItems = serverResponse.response;
+			console.log(listedItems);
+			let appointmentListHtml = '';
+			listedItems.map((appointment) => {
+				el = formatAppointmentElement(appointment);
+				appointmentListHtml += el;
+			});
+			appointmentsEl.innerHTML = appointmentListHtml;
+		};
+		xhr.send();
+	}
+
+	loadAppointments(appointmentsEl);
+</script>
+{% endblock content%}
