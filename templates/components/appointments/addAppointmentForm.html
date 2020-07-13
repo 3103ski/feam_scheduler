@@ -1,0 +1,31 @@
+<form
+	id="appointment-create-form"
+	class="form"
+	method="POST"
+	action="/api/appointments/create/"
+>
+	<input type="hidden" value="/appointments" name="next" />
+	{% csrf_token %}
+	<!--  -->
+	{{form.media}}
+	<!--  -->
+	<p>
+		{{ form.client }}
+	</p>
+	<!--  -->
+	<p>
+		<!-- {{ form.createdBy }} -->
+	</p>
+	<textarea
+		class="form-control mb-4"
+		name="appointmentNotes"
+		placeholder="Notes"
+	></textarea>
+	<p>
+		{{ form.appointmentDate }}
+	</p>
+	<p>
+		{{ form.appointmentTime }}
+	</p>
+	<button type="submit" class="btn btn-secondary">Add Appointment</button>
+</form>

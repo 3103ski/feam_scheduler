@@ -11,7 +11,8 @@ ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 
 
 def client_create_view(request, *args, **kwargs):
-    print("ajax", request.is_ajax())
+    # print("ajax", request.is_ajax())
+    print(request.POST)
     form = ClientForm(request.POST or None)
     next_url = request.POST.get('next') or None
     if form.is_valid():
@@ -22,7 +23,7 @@ def client_create_view(request, *args, **kwargs):
         if next_url != None and is_safe_url(next_url, ALLOWED_HOSTS):
             return redirect(next_url)
         form = ClientForm()
-    return render(request, "components/addClientForm.html", context={"form": form})
+    return render(request, "components/clients/addClientForm.html", context={"form": form})
 
 
 def client_list_view(request, *args, **kwargs):

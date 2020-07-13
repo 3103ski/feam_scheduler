@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block head_title%}Add Appointment{% endblock head_title%}
+<!--  -->
+{% block date_picker_scripts %}
+<script src="{% url 'js-catalog' %}"></script>
+<script src="{% static 'admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}" />
+
+<style>
+	ul li {
+		list-style: none !important;
+	}
+</style>
+{% endblock date_picker_scripts %}
+<!--  -->
+{% block content %}
+
+<div class="row">
+	<div
+		class="col-12"
+		style="
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-bottom: 3rem;
+		"
+	>
+		<h1>Add A New Appointment</h1>
+		<p>
+			You can use this page to make new appointments. Make sure you have added
+			the client you want to make an appointment for.
+		</p>
+	</div>
+	<div class="col-md-4 m-auto col-10">
+		{% include '../components/appointments/addAppointmentForm.html%}
+	</div>
+</div>
+
+<script>
+	const formEl = document.getElementById('appointment-create-form');
+
+	function handleAppointmentFormWasSubmitted(event) {
+		event.preventDefault();
+		const newAppointmentForm = event.target;
+		const newAppointmentData = new FormData(newAppointmentForm);
+
+		const url = newAppointmentForm.getAttribute('action');
+		const method = newAppointmentForm.getAttribute('method');
+		const xhr = new XMLHttpRequest();
+
+		xhr.responseType = 'json';
+		xhr.open(method, url);
+		xhr.setRequestHeader('HTTP_X_REQUESTED_WITH', 'XMLHttpRequest');
+		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		xhr.onload = function () {
+			const newAppointment = xhr.response;
+		};
+		xhr.send(newAppointmentData);
+	}
+	// formEl.addEventListener('submit', handleAppointmentFormWasSubmitted);
+</script>
+{% endblock content%}

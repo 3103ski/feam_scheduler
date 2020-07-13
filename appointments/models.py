@@ -9,34 +9,29 @@ def get_sentinel_user():
 
 
 class Appointment(models.Model):
-
-    # object fields and relationships
+    # relationships
     client = models.ForeignKey(
-        Client, on_delete=models.PROTECT)
-    createdBy = models.ForeignKey(
-        User, on_delete=models.SET(get_sentinel_user), null=True, blank=True)
-
+        Client, on_delete=models.SET_NULL, related_name='appointment', null=True, blank=True)
     # text fields
-    notes = models.TextField(null=True, blank=True)
-
+    appointmentNotes = models.TextField(blank=True)
     # datetime fields
-    appointmentDate = models.DateTimeField(null=True, blank=True)
+    appointmentDate = models.DateField(null=True, blank=True)
+    appointmentTime = models.TimeField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     lastModified = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['appointmentDate', '-id']
+        ordering = ['appointmentDate', 'appointmentTime', '-id']
 
-    # methods
     def __str__(self):
-        return self.client.name
+        return str(self.client)
 
     def serialize(self):
         return {
-            "client": self.client.name,
-            "createdBy": self.createdBy.username,
             "appointmentDate": self.appointmentDate,
-            "notes": self.notes,
+            "appointmentTime": self.appointmentTime,
             "createdOn": self.timestamp,
-            "lastModified": self.lastModified
+            "lastModified": self.lastModified,
+            "appointmentNotes": self.appointmentNotes,
+            "client": self.client.name
         }

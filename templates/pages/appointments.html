@@ -18,12 +18,13 @@
 	const appointmentsEl = document.getElementById('appointments');
 
 	const formatAppointmentElement = (appointment) => {
+		console.log(appointment);
 		const appointmentStr = `
 		   <div class="col-12 col-md-10 mx-auto py-3 mb-4 border rounded" id='client-${appointment.id}'>
 			   <p>Client: ${appointment.client}</p>
-			   <p>Created By: ${appointment.createdBy}</p>
 			   <p>Appointment Date: ${appointment.appointmentDate}</p>
-			   <p>Notes: ${appointment.notes}</p>
+			   <p>Appointment Time: ${appointment.appointmentTime}</p>
+			   <p>Notes: ${appointment.appointmentNotes}</p>
 			   <p>Created On: ${appointment.createdOn}</p>
 			   <p>Last Modified: ${appointment.lastModified}</p>
 		   </div>
