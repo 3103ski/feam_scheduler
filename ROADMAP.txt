@@ -1,0 +1,101 @@
+App Description:
+    -> Keeps track of scheduling flights for service as well as allows staff members to interface with scheduling to update information and comminicate details about work. The application should also have a front end display where the company can display other details to the interest of their clients. 
+
+Functional Overview:
+    -> Daily Board to show day's work
+        -> includes list of all flights for the day and their details
+        -> should be able to flip forwards and see other days 
+            -> possibly allow month view??
+    -> Message Board for management to communicate
+    -> Schedule for staff 
+        -> include available list of staff info (eg. contact numbers)
+            -> divide by department and positions
+        -> display time for safety briefing 
+        -> show when people are out sick
+        -> 
+    -> Add/Remove Staff members
+    -> Add/Remove clients
+    -> Schedule Flight for clients
+    -> 
+
+QUESTIONS FOR CLIENT: 
+    - are flight and tail numbers maxed out at six characters?
+    - enums
+        - staff crew options
+            -> ramp
+            -> flight coordinator
+            -> traffic coordinator
+            -> 
+    - staff on ramp crew switches daily? 
+    - 
+
+WORK MAP:
+
+    -> CLIENT MODEL
+        -> name
+        -> contact number
+        -> creation date
+        -> last modified
+        -> client notes
+        ** CLIENT VIEWS
+            -> client_list_view
+            -> client_create_view
+            -> client_delete_view
+            -> client_edit_view
+            -> 
+
+    -> FLIGHT MODEL
+        -> flight number : charfield : max 6
+        -> tail numer : charfield : max 6 
+        -> parking : enum ? : R-1 through R-14
+        -> routing : textfield
+        -> flightDate : date field
+        -> scheduledTimeOfArrival : time field
+        -> scheduledTimeOfDeparture : time field
+        -> estimatedTimeOfArrival : time field
+        -> estimatedTimeOfDeparture : time field
+        -> actualTimeOfArrival : time field
+        -> actualTimeOfDeparture : time field
+        -> serviceDuration : time field ? 
+        -> flightCoordinator : StaffMember
+        -> trafficCoordinator : StaffMember
+        -> crew : Team
+        -> lavService : StaffMember
+        -> remarks : 
+        ** FLIGHT VIEWS 
+            -> flight_create_view
+            -> flight_edit_view
+            -> flight_list_view
+                > lists ALL flights
+            -> flight_delete_view
+            -> update_eta_view
+            -> update_etd_view
+            -> update_atd_view
+            -> update_ata_view
+            -> 
+
+    -> DAY SCHEDULE MODEL
+        -> briefingTime : time field 
+        -> reminders : textfield
+        -> rampCrew : StaffMember
+        -> date
+
+    -> TEAM MODEL
+        -> 
+    -> STAFF MODEL
+        -> name : textfield
+        -> position : enum
+        -> addedBy : User
+        -> createdTimestamp : datetime
+        -> lastModified : datetime
+        -> contactNumber : integer field
+        -> emailAddress : email field
+        -> team : enum
+        -> supervisor : User
+
+    -> REMARK MODEL
+
+FRONT END UI MAP
+    -> Day Board    
+        - shows all the flights for the day listed out 
+    -> 

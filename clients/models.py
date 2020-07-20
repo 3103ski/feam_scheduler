@@ -11,9 +11,9 @@ def get_sentinel_user():
 class Client(models.Model):
     # client info
     name = models.CharField(null=False, max_length=30)
-    clientDescription = models.TextField(null=True, blank=True)
+    clientNotes = models.TextField(null=True, blank=True)
     address = models.CharField(null=True, max_length=100)
-    phoneNumber = models.IntegerField(null=False)
+    contactNumber = models.IntegerField(null=False)
 
     # relational fields
     createdBy = models.ForeignKey(
@@ -31,8 +31,8 @@ class Client(models.Model):
             "id": self.id,
             "name": self.name,
             "address": self.address,
-            "phoneNumber": self.phoneNumber,
-            "clientDescription": self.clientDescription,
+            "contactNumber": self.contactNumber,
+            "clientNotes": self.clientNotes,
             "createdBy": self.createdBy,
             "createdOn": self.createdOn,
             "lastModified": self.lastModified

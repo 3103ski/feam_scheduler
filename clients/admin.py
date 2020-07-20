@@ -1,10 +1,5 @@
 from django.contrib import admin
-
 from .models import Client
-
-# ======================
-#   Admin Class
-# ======================
 
 
 class ClientAdmin(admin.ModelAdmin):

@@ -11,7 +11,6 @@ ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 
 
 def client_create_view(request, *args, **kwargs):
-    # print("ajax", request.is_ajax())
     print(request.POST)
     form = ClientForm(request.POST or None)
     next_url = request.POST.get('next') or None

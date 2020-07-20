@@ -8,12 +8,16 @@ from django.utils.http import is_safe_url
 from django.http import HttpResponse, Http404, JsonResponse
 from django.conf import settings
 
+from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
+
 ALLOWED_HOSTS = settings.ALLOWED_HOSTS
 
 
 def appointment_list_view(request, *args, **kwargs):
     qs = Appointment.objects.all()
-    print("This is the dataset we are working with: ", qs)
     appointment_list = [x.serialize() for x in qs]
     data = {
         "response": appointment_list
@@ -34,3 +38,11 @@ def appointment_create_view(request, *args, **kwargs):
             return redirect(next_url)
         form = AppointmentForm()
     return render(request, "components/appointments/addAppointmentForm.html", context={"form": form})
+
+
+def appointment_action_view(request, *args, **kwargs):
+    qs = Appointment.objects.all()
+    # appointment = qs.filter(id=appointment_id)
+    print('this is the data set', qs)
+    print('this is the request', request.data)
+    return render(request, "pages/appointments.html", context={})

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from clients.models import Client
+from .utils import AppointmentStatusTypes
 User = get_user_model()
 
 
@@ -19,12 +20,18 @@ class Appointment(models.Model):
     appointmentTime = models.TimeField(null=True, blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     lastModified = models.DateTimeField(auto_now=True)
+    # enums
+    status = models.IntegerField(choices=AppointmentStatusTypes.choices(
+    ), default=AppointmentStatusTypes.NOT_STARTED)
 
     class Meta:
         ordering = ['appointmentDate', 'appointmentTime', '-id']
 
     def __str__(self):
         return str(self.client)
+
+    def get_status(self):
+        return AppointmentStatusTypes(self.status).name.title()
 
     def serialize(self):
         return {
@@ -33,5 +40,6 @@ class Appointment(models.Model):
             "createdOn": self.timestamp,
             "lastModified": self.lastModified,
             "appointmentNotes": self.appointmentNotes,
-            "client": self.client.name
+            "client": self.client.name,
+            "id": self.id
         }
