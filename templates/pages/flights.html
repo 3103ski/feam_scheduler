@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+<!--  -->
+{% block head_title%} FEAM Flights {% endblock head_title%}
+<!--  -->
+{% block content %}
+<div class="container">
+	<div class="row text-center mb-4">
+		<div class="col">
+			<h1>Flight List</h1>
+			<p>These are current upcoming flights.</p>
+		</div>
+	</div>
+	<div class="row" id="flights">
+		<div class="loader">Loading Flights...</div>
+	</div>
+</div>
+<script>
+	const flightsEl = document.getElementById('flights');
+
+	const formatFlightElement = (flight) => {
+		const flightStr = `
+		   <div class="col-12 col-md-10 mx-auto py-3 mb-4 border rounded" id='client-${
+					flight.id
+				}'>
+			   <p>Client: ${flight.client}</p>
+			   <p>Flight Number: ${flight.flightNumber}</p>
+			   <p>Flight Time: ${flight.flightTime}</p>
+		   <button class="btn btn-success">Mark Flight Completed</button>
+		   <button class="btn btn-info">Edit Flight</button>
+			${flightDeleteButton(flight)}
+		   </div>
+		   `;
+		return flightStr;
+	};
+
+	const handleFlightAction = (flightId, action) => {
+		const url = 'api/flights/action/';
+		const method = 'POST';
+		const data = JSON.stringify({
+			id: flightId,
+			action: action,
+		});
+		console.log(data);
+		const xhr = new XMLHttpRequest();
+		const csrftoken = getCookie('csrftoken');
+		xhr.open(method, url);
+
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.setRequestHeader('HTTP_X_REQUESTED_WITH', 'XMLHttpRequest');
+		xhr.setRequestHeader('x-requested-with', 'XMLHttpRequest');
+		xhr.setRequestHeader('X-CSRFToken', csrftoken);
+
+		xhr.onload = function () {
+			loadFlights(flightsEl);
+		};
+
+		xhr.send(data);
+		return;
+	};
+
+	const flightDeleteButton = (flight) => {
+		return `<button onClick="handleFlightAction(${flight.id},'delete')" class="btn btn-danger">Delete Flight</button>`;
+	};
+
+	function loadFlights(flightElement) {
+		const xhr = new XMLHttpRequest();
+		const method = 'GET';
+		const url = '/api/flights';
+		const responseType = 'json';
+
+		xhr.responseType = responseType;
+		xhr.open(method, url);
+		xhr.onload = function () {
+			const serverResponse = xhr.response;
+			let listedItems = serverResponse.response;
+			let flightListHtml = '';
+			serverResponse.map((flight) => {
+				el = formatFlightElement(flight);
+				flightListHtml += el;
+			});
+			flightsEl.innerHTML = flightListHtml;
+		};
+		xhr.send();
+	}
+
+	loadFlights(flightsEl);
+
+	function getCookie(name) {
+		var cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+			var cookies = document.cookie.split(';');
+			for (var i = 0; i < cookies.length; i++) {
+				var cookie = cookies[i].trim();
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) === name + '=') {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+</script>
+{% endblock content%}

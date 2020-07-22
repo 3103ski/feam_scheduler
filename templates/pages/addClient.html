@@ -37,11 +37,15 @@
 		const method = newClientForm.getAttribute('method');
 		const xhr = new XMLHttpRequest();
 
+		console.log(JSON.parse(newClientData));
+
 		xhr.open(method, url);
 		xhr.setRequestHeader('HTTP_X_REQUESTED_WITH', 'XMLHttpRequest');
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		xhr.responseType = 'json';
 		xhr.onload = function () {
 			const newClient = xhr.response;
+			console.log(xhr.response);
 		};
 		xhr.send(newClientData);
 	}

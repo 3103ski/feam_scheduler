@@ -1,0 +1,109 @@
+<!-- <form method="POST">
+	{% csrf_token %} {{ form.as_p }}
+	<button type="submit" class="btn btn-secondary">Save Client</button>
+</form> -->
+
+<form
+	id="client-create-form"
+	class="form"
+	method="POST"
+	action="/api/flights/create/"
+>
+	{% csrf_token %}
+	<!--  -->
+	{{form.media}}
+	<!--  -->
+	<input
+		class="form-control mb-4"
+		type="hidden"
+		value="/flights/"
+		name="next"
+		action="/create-flight"
+	/>
+	<p>
+		{{ form.client }}
+	</p>
+
+	<input
+		class="form-control mb-4"
+		type="text"
+		name="flightNumber"
+		placeholder="Flight Number"
+	/>
+	<input
+		class="form-control mb-4"
+		type="text"
+		name="tailNumber"
+		placeholder="Tail Number"
+	/>
+	<input
+		class="form-control mb-4"
+		type="text"
+		name="parking"
+		placeholder="Parking"
+	/>
+	<input
+		class="form-control mb-4"
+		type="text"
+		name="routing"
+		placeholder="Routing Number"
+	/>
+
+	<p>
+		Flight Date<br />
+		{{ form.flightDate }}
+	</p>
+	<p>
+		Scheduled TOA<br />
+		{{ form.scheduledTOA }}
+	</p>
+	<p>
+		Scheduled TOD<br />
+		{{ form.scheduledTOD }}
+	</p>
+	<p>
+		Estimated TOA<br />
+		{{ form.estimatedTOA }}
+	</p>
+	<p>
+		Estimated TOD<br />
+		{{ form.estimatedTOD }}
+	</p>
+	<p>
+		Actual TOA<br />
+		{{ form.actualTOA }}
+	</p>
+	<p>
+		Actual TOD<br />
+		{{ form.actualTOD }}
+	</p>
+	<input
+		class="form-control mb-4"
+		type="text"
+		name="serviceDuration"
+		placeholder="Service Duration"
+	/>
+	<p>
+		Flight Coordinator<br />
+		{{ form.flightCoordinator }}
+	</p>
+	<p>
+		Traffic Coordinator<br />
+		{{ form.trafficCoordinator }}
+	</p>
+	<p>
+		Lav Service<br />
+		{{ form.lavService }}
+	</p>
+	<textarea
+		class="form-control mb-4"
+		name="remarks"
+		placeholder="remarks"
+	></textarea>
+	<p>
+		Scheduled By<br />
+		{{ form.createdBy }}
+	</p>
+
+	<button type="submit" class="btn btn-primary">Schedule Flight</button>
+</form>

@@ -21,9 +21,8 @@
 		const clientStr = `
 		   <div class="col-12 col-md-10 mx-auto py-3 mb-4 border rounded" id='client-${client.id}'>
 			   <p>Name: ${client.name}</p>
-			   <p>Client Notes: ${client.clientDescription}</p>
-			   <p>Address: ${client.address}</p>
-			   <p>Contact Number: ${client.phoneNumber}</p>
+			   <p>Client Notes: ${client.clientNotes}</p>
+			   <p>Contact Number: ${client.contactNumber}</p>
 		   </div>
 		   `;
 		return clientStr;
@@ -39,10 +38,8 @@
 		xhr.open(method, url);
 		xhr.onload = function () {
 			const serverResponse = xhr.response;
-			let listedItems = serverResponse.response;
-			console.log(listedItems);
 			let clientListHtml = '';
-			listedItems.map((client) => {
+			serverResponse.map((client) => {
 				el = formatClientElement(client);
 				clientListHtml += el;
 			});

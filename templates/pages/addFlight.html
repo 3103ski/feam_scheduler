@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+<!--  -->
+{% load static %}
+<!--  -->
+{% block head_title%}Add Flight{% endblock head_title%}
+<!--  -->
+{% block date_picker_scripts %}
+<script src="{% url 'js-catalog' %}"></script>
+<script src="{% static 'admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}" />
+
+<style>
+	ul li {
+		list-style: none !important;
+	}
+</style>
+{% endblock date_picker_scripts %}
+<!--  -->
+{% block content %}
+
+<div class="row">
+	<div
+		class="col-12"
+		style="
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-bottom: 3rem;
+		"
+	>
+		<h1>Add A New Flight</h1>
+		<p>
+			You can use this page to make new flights. Make sure you have added the
+			client you want to make an flight for.
+		</p>
+	</div>
+	<div class="col-md-4 m-auto col-10">
+		{% include '../components/flights/addFlightForm.html%}
+	</div>
+</div>
+
+<script>
+	const formEl = document.getElementById('flight-create-form');
+
+	function handleFlightFormWasSubmitted(event) {
+		event.preventDefault();
+		const newFlightForm = event.target;
+		const newFlightData = new FormData(newFlightForm);
+
+		const url = newFlightForm.getAttribute('action');
+		const method = newFlightForm.getAttribute('method');
+		const xhr = new XMLHttpRequest();
+
+		xhr.responseType = 'json';
+		xhr.open(method, url);
+		xhr.setRequestHeader('HTTP_X_REQUESTED_WITH', 'XMLHttpRequest');
+		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		xhr.onload = function () {
+			const newFlight = xhr.response;
+		};
+		xhr.send(newFlightData);
+	}
+	// formEl.addEventListener('submit', handleFlightFormWasSubmitted);
+</script>
+{% endblock content%}
