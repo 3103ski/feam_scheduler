@@ -19,10 +19,10 @@ class Flight(models.Model):
     flightDate = models.DateField(null=False)
     scheduledTOA = models.TimeField(null=False)
     scheduledTOD = models.TimeField(null=False)
-    estimatedTOA = models.TimeField(null=False)
-    estimatedTOD = models.TimeField(null=False)
-    actualTOA = models.TimeField(null=True)
-    actualTOD = models.TimeField(null=True)
+    estimatedTOA = models.TimeField(null=False, blank=True)
+    estimatedTOD = models.TimeField(null=False, blank=True)
+    actualTOA = models.TimeField(null=True, blank=True)
+    actualTOD = models.TimeField(null=True, blank=True)
     serviceDuration = models.CharField(null=True, blank=True, max_length=10)
     flightCoordinator = models.ForeignKey(
         StaffMember, on_delete=models.SET_NULL, related_name='flightCoordinator', blank=True, null=True)
@@ -61,7 +61,7 @@ class Flight(models.Model):
             "flightCoordinator": self.flightCoordinator,
             "trafficCoordinator": self.trafficCoordinator,
             "lavService": self.lavService,
-            "client": self.client
+            "client": self.client.name
         }
 
     class Meta:

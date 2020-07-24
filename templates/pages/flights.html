@@ -18,13 +18,33 @@
 	const flightsEl = document.getElementById('flights');
 
 	const formatFlightElement = (flight) => {
+		// console.log(flight);
 		const flightStr = `
 		   <div class="col-12 col-md-10 mx-auto py-3 mb-4 border rounded" id='client-${
 					flight.id
 				}'>
-			   <p>Client: ${flight.client}</p>
+			   <p>Client: ${flight.client.name}</p>
 			   <p>Flight Number: ${flight.flightNumber}</p>
-			   <p>Flight Time: ${flight.flightTime}</p>
+			   <p>Flight Time: ${flight.flightDate}</p>
+			   <p>Parking: ${flight.parking}</p>
+			   <p>Tail Number: ${flight.tailNumber}</p>
+			   <p>Routing Number: ${flight.routing}</p>
+			   <p>Scheduled Arrival: ${flight.scheduledTOA}</p>
+			   <p>Scheduled Departure: ${flight.scheduledTOD}</p>
+			   <p>Estimated Arrival: ${flight.estimatedTOA}</p>
+			   <p>Estimated Departure: ${flight.estimatedTOD}</p>
+			   <p>Actual Arrival: ${flight.actualTOA}</p>
+			   <p>Actual Departure: ${flight.actualTOD}</p>
+			   <p>Service Duration: ${flight.serviceDuration}</p>
+			   <p>Flight Coordinator: ${flight.flightCoordinator.name}</p>
+			   <p>Traffic Coordinator: ${flight.trafficCoordinator.name}</p>
+			   <p>Lav Service: ${
+						flight.lavService == null ? 'not scheduled' : flight.lavService.name
+					}</p>
+			   <p>Remarks: ${flight.remarks}</p>
+			   <p>Originally Scheduled By: ${flight.createdBy}</p>
+			   <p>Flight Schedule Made On: ${flight.actualTOD}</p>
+			   <p>Last Updated: ${flight.lastModified}</p>
 		   <button class="btn btn-success">Mark Flight Completed</button>
 		   <button class="btn btn-info">Edit Flight</button>
 			${flightDeleteButton(flight)}

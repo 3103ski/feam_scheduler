@@ -1,5 +1,6 @@
 from django import forms
 from .models import Flight
+from clients.models import Client
 
 from django.contrib.admin.widgets import (
     AdminDateWidget,

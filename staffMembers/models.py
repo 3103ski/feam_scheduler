@@ -35,5 +35,6 @@ class StaffMember(models.Model):
             "contactNumber": self.contactNumber,
             "emailAddress": self.emailAddress,
             "supervisor": self.supervisor,
-            "team": self.team
+            "team": self.team,
+            "id": self.id
         }

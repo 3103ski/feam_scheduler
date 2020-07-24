@@ -31,19 +31,31 @@ ALLOWED_HOSTS = ['http://127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    # Django Apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third Party Apps
     'rest_framework',
+    'rest_framework.authtoken',
+
+    # Local Apps
     'appointments',
     'clients',
     'staffMembers',
     'flights',
     'daySchedules'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

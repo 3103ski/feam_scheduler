@@ -24,7 +24,6 @@ def flight_list(request):
         return JsonResponse(serializer.data, safe=False)
 
     elif request.method == 'POST':
-        # form = FlightForm(request.POST or None)
         serializer = FlightSerializer(data=request.POST)
         next_url = request.POST.get('next')
         if serializer.is_valid():
@@ -33,3 +32,38 @@ def flight_list(request):
                 return JsonResponse(serializer.data, status=201) and redirect(next_url)
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+
+
+def flight_detail(request, pk):
+    try:
+        flight = Flight.objects.get(pk=pk)
+    except Flight.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = FlightSerializer(flight)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = FlightSerializer(article, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            if next_url != None and is_safe_url(next_url, ALLOWED_HOSTS):
+                return JsonResponse(serializer.data, status=201) and redirect(next_url)
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        flight.delete()
+        return HttpResponse(status=204)
+
+
+def flight_action(request):
+    print(request.data)
+    # action = request.data.action
+    # flight_id = request.data.id
+
+    # if action == 'delete':
+    #     Flight.objects.delete(id=flight_id)
+    return redirect('/flights/')
