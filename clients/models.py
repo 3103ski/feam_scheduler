@@ -15,7 +15,7 @@ class Client(models.Model):
     address = models.CharField(null=True, max_length=100)
     contactNumber = models.IntegerField(null=False)
     createdBy = models.ForeignKey(
-        User, on_delete=models.SET(get_sentinel_user), null=True, blank=True)
+        User, related_name='clients', on_delete=models.SET(get_sentinel_user), null=True, blank=True)
     createdOn = models.DateTimeField(auto_now_add=True)
     lastModified = models.DateTimeField(auto_now=True)
 

@@ -13,7 +13,7 @@ class StaffMember(models.Model):
     name = models.TextField(null=False)
     position = models.TextField(null=False)
     createdBy = models.ForeignKey(
-        User, on_delete=models.SET(get_sentinel_user), null=True, blank=True)
+        User, related_name='staffMembers', on_delete=models.SET(get_sentinel_user), null=True, blank=True)
     createdOn = models.DateTimeField(auto_now_add=True)
     lastModified = models.DateTimeField(auto_now=True)
     contactNumber = models.IntegerField(null=True)

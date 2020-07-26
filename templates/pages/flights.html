@@ -23,7 +23,7 @@
 		   <div class="col-12 col-md-10 mx-auto py-3 mb-4 border rounded" id='client-${
 					flight.id
 				}'>
-			   <p>Client: ${flight.client.name}</p>
+			   <p>Client: ${flight.client}</p>
 			   <p>Flight Number: ${flight.flightNumber}</p>
 			   <p>Flight Time: ${flight.flightDate}</p>
 			   <p>Parking: ${flight.parking}</p>
@@ -36,10 +36,10 @@
 			   <p>Actual Arrival: ${flight.actualTOA}</p>
 			   <p>Actual Departure: ${flight.actualTOD}</p>
 			   <p>Service Duration: ${flight.serviceDuration}</p>
-			   <p>Flight Coordinator: ${flight.flightCoordinator.name}</p>
-			   <p>Traffic Coordinator: ${flight.trafficCoordinator.name}</p>
+			   <p>Flight Coordinator: ${flight.flightCoordinator}</p>
+			   <p>Traffic Coordinator: ${flight.trafficCoordinator}</p>
 			   <p>Lav Service: ${
-						flight.lavService == null ? 'not scheduled' : flight.lavService.name
+						flight.lavService == null ? 'not scheduled' : flight.lavService
 					}</p>
 			   <p>Remarks: ${flight.remarks}</p>
 			   <p>Originally Scheduled By: ${flight.createdBy}</p>

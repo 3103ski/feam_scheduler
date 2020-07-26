@@ -1,6 +1,8 @@
 from django import forms
 from .models import Flight
 from clients.models import Client
+from clients.serializers import ClientSerializer
+from staffMembers.serializers import StaffMemberSerializer
 
 from django.contrib.admin.widgets import (
     AdminDateWidget,
@@ -28,7 +30,8 @@ class FlightForm(forms.ModelForm):
                            'actualTOA', 'actualTOD', 'serviceDuration', 'flightCoordinator', 'trafficCoordinator', 'lavService', 'remarks', 'createdBy']
 
     def clean_client(self):
-        client = self.cleaned_data('client')
+        # client = self.cleaned_data('client')
+        client = ClientSerializer()
         return client
 
     def clean_flightNumber(self):

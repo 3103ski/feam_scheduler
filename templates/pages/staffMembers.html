@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+<!--  -->
+{% block head_title%} FEAM StaffMembers {% endblock head_title%}
+<!--  -->
+{% block content %}
+<div class="container">
+	<div class="row text-center mb-4">
+		<div class="col">
+			<h1>Staff List</h1>
+			<p>Staff members in the system.</p>
+		</div>
+	</div>
+	<div class="row" id="staffMembers">
+		<div class="loader">Loading...</div>
+	</div>
+</div>
+<script>
+	const staffMemberEl = document.getElementById('staffMembers');
+
+	const formatStaffMemberElement = (staffMember) => {
+		const staffMemberStr = `
+		   <div class="col-12 col-md-10 mx-auto py-3 mb-4 border rounded" id='staffMember-${staffMember.id}'>
+			   <p>Name: ${staffMember.name}</p>
+			   <p>StaffMember Notes: ${staffMember.staffMemberNotes}</p>
+			   <p>Contact Number: ${staffMember.contactNumber}</p>
+		   </div>
+		   `;
+		return staffMemberStr;
+	};
+
+	function loadStaffMembers(staffMemberElement) {
+		const xhr = new XMLHttpRequest();
+		const method = 'GET';
+		const url = '/api/staffMembers';
+		const responseType = 'json';
+
+		xhr.responseType = responseType;
+		xhr.open(method, url);
+		xhr.onload = function () {
+			const serverResponse = xhr.response;
+			let staffMemberListHtml = '';
+			serverResponse.map((staffMember) => {
+				el = formatStaffMemberElement(staffMember);
+				staffMemberListHtml += el;
+			});
+			staffMemberElement.innerHTML = staffMemberListHtml;
+		};
+		xhr.send();
+	}
+
+	loadStaffMembers(staffMemberEl);
+</script>
+{% endblock content%}

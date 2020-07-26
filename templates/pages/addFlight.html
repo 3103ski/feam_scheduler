@@ -46,7 +46,8 @@
 	function handleFlightFormWasSubmitted(event) {
 		event.preventDefault();
 		const newFlightForm = event.target;
-		const newFlightData = new FormData(newFlightForm);
+		const newFlightData = new FormData(event.target);
+		console.log(newFlightData);
 
 		const url = newFlightForm.getAttribute('action');
 		const method = newFlightForm.getAttribute('method');
@@ -58,9 +59,12 @@
 		xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
 		xhr.onload = function () {
 			const newFlight = xhr.response;
+			console.log('NEW FLIGHT:::::', newFlight);
+			console.log('NEW FLIGHT DATA:::::', newFlightData);
 		};
+		console;
 		xhr.send(newFlightData);
 	}
-	// formEl.addEventListener('submit', handleFlightFormWasSubmitted);
+	formEl.addEventListener('submit', handleFlightFormWasSubmitted);
 </script>
 {% endblock content%}

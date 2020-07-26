@@ -11,7 +11,8 @@ def get_sentinel_user():
 
 
 class Flight(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True)
+    client = models.ForeignKey(
+        Client, on_delete=models.CASCADE, null=True, blank=True)
     flightNumber = models.CharField(null=False, max_length=6)
     tailNumber = models.CharField(null=False, max_length=6)
     parking = models.CharField(null=False, max_length=8)
@@ -30,10 +31,10 @@ class Flight(models.Model):
         StaffMember, on_delete=models.SET_NULL,  related_name='trafficCoordinator', blank=True, null=True)
     # crew = Team
     lavService = models.ForeignKey(
-        StaffMember, on_delete=models.SET_NULL, related_name='lavService', blank=True, null=True)
+        StaffMember, on_delete=models.SET_NULL, related_name='lavService',  null=True, blank=True)
     remarks = models.TextField(null=True, blank=True)
     createdBy = models.ForeignKey(
-        User, on_delete=models.SET(get_sentinel_user), null=True, blank=True)
+        User, related_name='flights', on_delete=models.SET(get_sentinel_user), null=True, blank=True)
     createdOn = models.DateTimeField(auto_now_add=True)
     lastModified = models.DateTimeField(auto_now=True)
 
@@ -61,7 +62,8 @@ class Flight(models.Model):
             "flightCoordinator": self.flightCoordinator,
             "trafficCoordinator": self.trafficCoordinator,
             "lavService": self.lavService,
-            "client": self.client.name
+            "client": self.client.name,
+            "id": self.id
         }
 
     class Meta:

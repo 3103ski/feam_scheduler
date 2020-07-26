@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import flight_list, flight_detail
+from .views import GenericFlightAPIView
 
 urlpatterns = [
-    path('', flight_list),
-    path('detail/<int:pk>/', flight_detail),
-    path('create/', flight_list)
+    path('', GenericFlightAPIView.as_view()),
+    path('create/', GenericFlightAPIView.as_view()),
+    path('detail/<int:id>/', GenericFlightAPIView.as_view())
 ]

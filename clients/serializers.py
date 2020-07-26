@@ -10,6 +10,11 @@ def get_sentinel_user():
 
 
 class ClientSerializer(serializers.ModelSerializer):
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        return name
+
     class Meta:
         model = Client
         fields = ['name', 'clientNotes', 'address', 'contactNumber',

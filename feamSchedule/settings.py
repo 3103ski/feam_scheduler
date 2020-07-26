@@ -25,7 +25,8 @@ SECRET_KEY = 'd4h)!b3ihsryloez-^e8@ot80h(b^s0opszmg0h%%0s8_cr&im'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['http://127.0.0.1', 'localhost',
+                 'http://localhost:3000', '127.0.0.1']
 
 
 # Application definition
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     # Third Party Apps
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
 
     # Local Apps
     'appointments',
@@ -51,15 +53,17 @@ INSTALLED_APPS = [
     'daySchedules'
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.TokenAuthentication',
+#     ],
+# }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -142,3 +146,10 @@ DATE_INPUT_FORMATS = [
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# CORS_ORIGIN_WHITELIST = [
+#     "https://localhost:3000",
+# ]
+
+CORS_ORIGIN_ALLOW_ALL = True

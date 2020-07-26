@@ -23,5 +23,5 @@ urlpatterns = [
     path('add-flight/', add_flight_view),
     path('api/clients/', include('clients.urls')),
     path('api/flights/', include('flights.urls')),
-    path('flights/api/flights/', include('flights.urls'))
+    # path('flights/api/flights/', include('flights.urls'))
 ]
