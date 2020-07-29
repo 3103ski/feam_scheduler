@@ -13,11 +13,11 @@ class Client(models.Model):
     name = models.CharField(null=False, max_length=30)
     clientNotes = models.CharField(max_length=500, null=True, blank=True)
     address = models.CharField(null=True, max_length=100)
-    contactNumber = models.IntegerField(null=False)
+    contactNumber = models.IntegerField(null=True, blank=True)
     createdBy = models.ForeignKey(
         User, related_name='clients', on_delete=models.SET(get_sentinel_user), null=True, blank=True)
-    createdOn = models.DateTimeField(auto_now_add=True)
-    lastModified = models.DateTimeField(auto_now=True)
+    createdOn = models.DateTimeField(auto_now_add=True, null=True)
+    lastModified = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.name

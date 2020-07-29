@@ -11,7 +11,7 @@ from clients.views import (
 
 urlpatterns = [
     # path('<int:id>', ClientDetails.as_view()),
-    path('create/', GenericClientAPIView.as_view()),
+    path('', GenericClientAPIView.as_view()),
     path('<int:id>/', GenericClientAPIView.as_view()),
-    path('', GenericClientAPIView.as_view())
+    # path('', GenericClientAPIView.as_view())
 ]
