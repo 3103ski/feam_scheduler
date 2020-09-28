@@ -28,5 +28,5 @@ class FlightSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Flight
-        fields = ['client', 'flightNumber', 'tailNumber', 'parking', 'routing', 'flightDate', 'scheduledTOA', 'scheduledTOD', 'estimatedTOA', 'estimatedTOD',
+        fields = ['client', 'flightNumber', 'tailNumber', 'parking', 'routing', 'scheduledTOA', 'scheduledTOD', 'estimatedTOA', 'estimatedTOD',
                   'actualTOA', 'actualTOD', 'serviceDuration', 'flightCoordinator', 'trafficCoordinator', 'lavService', 'remarks', 'createdBy', 'createdOn', 'lastModified', 'id']

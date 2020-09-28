@@ -13,23 +13,21 @@ def get_sentinel_user():
 class Flight(models.Model):
     client = models.ForeignKey(
         Client, on_delete=models.CASCADE, null=True, blank=True)
-    flightNumber = models.CharField(null=False, max_length=6)
-    tailNumber = models.CharField(null=False, max_length=6)
-    parking = models.CharField(null=False, max_length=8)
+    flightNumber = models.CharField(null=False, max_length=60)
+    tailNumber = models.CharField(null=False, max_length=60)
+    parking = models.CharField(null=False, max_length=80)
     routing = models.TextField(null=False)
-    flightDate = models.DateField(null=False)
-    scheduledTOA = models.TimeField(null=False)
-    scheduledTOD = models.TimeField(null=False)
-    estimatedTOA = models.TimeField(null=False, blank=True)
-    estimatedTOD = models.TimeField(null=False, blank=True)
-    actualTOA = models.TimeField(null=True, blank=True)
-    actualTOD = models.TimeField(null=True, blank=True)
+    scheduledTOA = models.DateTimeField(null=True, blank=True)
+    scheduledTOD = models.DateTimeField(null=True, blank=True)
+    estimatedTOA = models.DateTimeField(null=True, blank=True)
+    estimatedTOD = models.DateTimeField(null=True, blank=True)
+    actualTOA = models.DateTimeField(null=True, blank=True)
+    actualTOD = models.DateTimeField(null=True, blank=True)
     serviceDuration = models.CharField(null=True, blank=True, max_length=10)
     flightCoordinator = models.ForeignKey(
         StaffMember, on_delete=models.SET_NULL, related_name='flightCoordinator', blank=True, null=True)
     trafficCoordinator = models.ForeignKey(
         StaffMember, on_delete=models.SET_NULL,  related_name='trafficCoordinator', blank=True, null=True)
-    # crew = Team
     lavService = models.ForeignKey(
         StaffMember, on_delete=models.SET_NULL, related_name='lavService',  null=True, blank=True)
     remarks = models.TextField(null=True, blank=True)
@@ -47,7 +45,6 @@ class Flight(models.Model):
             "tailNumber": self.tailNumber,
             "parking": self.parking,
             "routing": self.routing,
-            "flightDate": self.flightDate,
             "scheduledTOA": self.scheduledTOA,
             "scheduledTOD": self.scheduledTOD,
             "estimatedTOA": self.estimatedTOA,
@@ -67,4 +64,4 @@ class Flight(models.Model):
         }
 
     class Meta:
-        ordering = ['flightDate']
+        ordering = ['scheduledTOA']
